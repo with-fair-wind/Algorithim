@@ -2,6 +2,7 @@
 #define __GRAPH_H__
 
 #include "Fun.h"
+#include <algorithm>
 #include <list>
 #include <queue>
 #include <stack>
@@ -175,10 +176,10 @@ void DFS_v2(Node *node);
 // 图的拓扑排序
 std::list<Node *> *sortedTopology(Graph *graph);
 
-// 生成最小生成树(k算法)
+// 生成最小生成树(k、p算法)
 std::unordered_set<Edge *, EdgeHash, EdgeEqual> kruskalMST(Graph *Graph);
 std::unordered_set<Edge *, EdgeHash, EdgeEqual> primMST(Graph *Graph);
 
 std::unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra1(Node *head);
-Node *getMinDistanceAndUnselectedNode(std::unordered_map<Node *, int, NodeHash, NodeEqual>, std::unordered_set<Node *, NodeHash, NodeEqual>);
+Node *getMinDistanceAndUnselectedNode(std::unordered_map<Node *, int, NodeHash, NodeEqual> &distanceMap, std::unordered_set<Node *, NodeHash, NodeEqual> &selectedNodes);
 #endif

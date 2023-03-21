@@ -156,8 +156,40 @@ unordered_set<Edge *, EdgeHash, EdgeEqual> primMST(Graph *Graph)
 
 unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra1(Node *head)
 {
+    unordered_map<Node *, int, NodeHash, NodeEqual> distanceMap;
+    distanceMap.insert(make_pair(head, 0));
+    unordered_set<Node *, NodeHash, NodeEqual> selectedNodes;
+    Node *minNode = getMinDistanceAndUnselectedNode(distanceMap, selectedNodes);
+
+    while (minNode)
+    {
+        selectedNodes.insert(minNode);
+        int distance = distanceMap[minNode];
+        for (Edge *edge : minNode->edges)
+        {
+            Node *toNode = edge->to;
+            if (selectedNodes.find(toNode) == selectedNodes.end())
+                distanceMap.insert(make_pair(toNode, edge->weight));
+            else
+                distanceMap[toNode] = (distanceMap[toNode] < distance + edge->weight ? distanceMap[toNode] : distance + edge->weight);
+        }
+        minNode = getMinDistanceAndUnselectedNode(distanceMap, selectedNodes);
+    }
+
+    return distanceMap;
 }
 
-Node *getMinDistanceAndUnselectedNode(unordered_map<Node *, int, NodeHash, NodeEqual>, unordered_set<Node *, NodeHash, NodeEqual>)
+Node *getMinDistanceAndUnselectedNode(unordered_map<Node *, int, NodeHash, NodeEqual> &distanceMap, unordered_set<Node *, NodeHash, NodeEqual> &selectedNodes)
 {
+    Node *minNode = nullptr;
+    int minDistance = INT_MAX;
+    for (auto cur : distanceMap)
+    {
+        if (cur.second < minDistance && (selectedNodes.find(cur.first) == selectedNodes.end()))
+        {
+            minNode = cur.first;
+            minDistance = cur.second;
+        }
+    }
+    return minNode;
 }
