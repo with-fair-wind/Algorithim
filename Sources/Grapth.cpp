@@ -122,3 +122,42 @@ unordered_set<Edge *, EdgeHash, EdgeEqual> kruskalMST(Graph *Graph)
     }
     return res;
 }
+
+unordered_set<Edge *, EdgeHash, EdgeEqual> primMST(Graph *Graph)
+{
+    priority_queue<Edge *, vector<Edge *>, Cmp_edge> priorityEdges;
+    unordered_set<Node *, NodeHash, NodeEqual> nodeSet;
+    unordered_set<Edge *, EdgeHash, EdgeEqual> res;
+
+    // 最外层for是森林问题(一个图分几个整体连通)
+    for (auto tmp : Graph->nodes)
+    {
+        if (nodeSet.find(tmp.second) == nodeSet.end())
+        {
+            nodeSet.insert(tmp.second);
+            for (auto edge : tmp.second->edges)
+                priorityEdges.push(edge);
+        }
+        while (!priorityEdges.empty())
+        {
+            Edge *cur = priorityEdges.top();
+            priorityEdges.pop();
+            if (nodeSet.find(cur->to) != nodeSet.end())
+            {
+                nodeSet.insert(cur->to);
+                res.insert(cur);
+                for (auto edge : cur->to->edges)
+                    priorityEdges.push(edge);
+            }
+        }
+    }
+    return res;
+}
+
+unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra1(Node *head)
+{
+}
+
+Node *getMinDistanceAndUnselectedNode(unordered_map<Node *, int, NodeHash, NodeEqual>, unordered_set<Node *, NodeHash, NodeEqual>)
+{
+}
