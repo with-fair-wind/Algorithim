@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 
-    Test_PrintPaperFolding();
+    Test_GetMedianOfVector();
 
     return 0;
 }

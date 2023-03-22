@@ -244,3 +244,27 @@ double xToPower2()
     default_random_engine e(time(nullptr));
     return max(u(e), u(e)); // 两个u(e)都<x时，max后才<x所以<x的概率变成x^2了
 }
+
+void CreateMedianDuiShuQi(int testTimes, int maxSize, int maxValue, double (*pt1)(std::vector<int> &vec), double (*pt2)(std::vector<int> &vec))
+{
+    srand(time(nullptr));
+    bool success = true;
+    for (int i = 0; i < testTimes; i++)
+    {
+        int size = rand() % maxSize + 1;
+        vector<int> vec1, vec2;
+        for (int j = 0; j < size; j++)
+            vec1.push_back((rand() % maxValue + 1) - (rand() % maxValue + 1));
+        for (const auto &num : vec1)
+            vec2.push_back(num);
+        double m1 = pt1(vec1);
+        double m2 = pt2(vec2);
+        success = m1 == m2 ? true : false;
+        if (!success)
+        {
+            cout << "m1: " << m1 << " m2: " << m2 << endl;
+            break;
+        }
+    }
+    cout << (success ? "today is a beautiful day^_^" : "Oops..what a fuck!") << endl;
+}

@@ -180,6 +180,7 @@ std::list<Node *> *sortedTopology(Graph *graph);
 std::unordered_set<Edge *, EdgeHash, EdgeEqual> kruskalMST(Graph *Graph);
 std::unordered_set<Edge *, EdgeHash, EdgeEqual> primMST(Graph *Graph);
 
+// 最短路径问题
 std::unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra1(Node *head);
 Node *getMinDistanceAndUnselectedNode(std::unordered_map<Node *, int, NodeHash, NodeEqual> &distanceMap, std::unordered_set<Node *, NodeHash, NodeEqual> &selectedNodes);
 #endif

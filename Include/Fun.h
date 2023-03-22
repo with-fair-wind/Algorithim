@@ -66,7 +66,8 @@ int oneMinIndex(int *arr, int size);
 /*
 ***对数器相关***
 */
-// 创建随机数组(数组大小、数组元素均随机)
+// 创建随机数组(数组大小、数组元素均随机)进行排序算法
 void CreateArrDuiShuQi(int testTimes, int maxSize, int maxValue, void (*pt1)(int *arr, int size), void (*pt2)(int *arr, int size), void (*pt3)(int *arr, int L, int R), void (*pt4)(int *arr, int L, int R));
-
+// 寻找数组中位数
+void CreateMedianDuiShuQi(int testTimes, int maxSize, int maxValue, double (*pt1)(std::vector<int> &vec), double (*pt2)(std::vector<int> &vec));
 #endif

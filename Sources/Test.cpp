@@ -137,3 +137,22 @@ void Test_PrintPaperFolding()
 {
     PrintPaperFolding(3);
 }
+
+void Test_LowestLexicography()
+{
+    vector<string> strs1{"b", "ba"};
+    vector<string> strs2{"jibw", "ji", "jp", "bw", "jibw"};
+    cout << lowestString(strs1) << endl;
+    cout << lowestString(strs2) << endl;
+}
+
+void Test_LessMoneySplitGold()
+{
+    vector<int> vec{6, 7, 8, 9};
+    cout << "lessMoney: " << lessMoney(vec) << endl;
+}
+
+void Test_GetMedianOfVector()
+{
+    CreateMedianDuiShuQi(TESTTIMES, MAXSIZE, MAXVAL, getMedian, getMedianOfArray);
+}
