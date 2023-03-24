@@ -156,3 +156,19 @@ void Test_GetMedianOfVector()
 {
     CreateMedianDuiShuQi(TESTTIMES, MAXSIZE, MAXVAL, getMedian, getMedianOfArray);
 }
+
+void Test_Hanoi()
+{
+    hanoi(3);
+}
+
+void Test_PrintAllSubsquences()
+{
+    printAllSubsequence_v2(string("abc"));
+}
+
+void Test_PrintAllPermutations()
+{
+    for (auto &cur : Permutation(string("abc")))
+        cout << cur << endl;
+}

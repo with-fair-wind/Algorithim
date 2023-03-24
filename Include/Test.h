@@ -2,6 +2,7 @@
 #define __TEST_H__
 
 #include "BinaryTree.h"
+#include "Force_Recursion.h"
 #include "Graph.h"
 #include "Linked_List.h"
 #include "Silly_White_Sweet.h"
@@ -30,4 +31,9 @@ void Test_PrintPaperFolding();
 void Test_LowestLexicography();
 void Test_LessMoneySplitGold();
 void Test_GetMedianOfVector();
+
+// 暴力递归
+void Test_Hanoi();
+void Test_PrintAllSubsquences();
+void Test_PrintAllPermutations();
 #endif

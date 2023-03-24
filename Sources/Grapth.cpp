@@ -193,3 +193,18 @@ Node *getMinDistanceAndUnselectedNode(unordered_map<Node *, int, NodeHash, NodeE
     }
     return minNode;
 }
+
+unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra2(Node *head)
+{
+    unordered_map<Node *, int, NodeHash, NodeEqual> res;
+    NodeHeap *nodeheap = new NodeHeap();
+    nodeheap->addOrUpdateOrIgnore(head, 0);
+    while (!nodeheap->isEmpty())
+    {
+        pair<Node *, int> record = nodeheap->pop();
+        res.insert(record);
+        for (auto &cur : record.first->edges)
+            nodeheap->addOrUpdateOrIgnore(cur->to, cur->weight + record.second);
+    }
+    return res;
+}

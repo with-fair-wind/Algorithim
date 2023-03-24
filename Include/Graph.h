@@ -181,6 +181,96 @@ std::unordered_set<Edge *, EdgeHash, EdgeEqual> kruskalMST(Graph *Graph);
 std::unordered_set<Edge *, EdgeHash, EdgeEqual> primMST(Graph *Graph);
 
 // 最短路径问题
+// 从head出发，所有head能达到的节点，生成到达每个节点的最小路径记录并返回
 std::unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra1(Node *head);
 Node *getMinDistanceAndUnselectedNode(std::unordered_map<Node *, int, NodeHash, NodeEqual> &distanceMap, std::unordered_set<Node *, NodeHash, NodeEqual> &selectedNodes);
+// 改写堆的实现
+class NodeHeap
+{
+private:
+    std::vector<Node *> nodeVec;
+    std::unordered_map<Node *, int, NodeHash, NodeEqual> heapIndexMap; // 小根堆中的node对应与vector的索引，用于判断是否在堆中，是否进入过堆
+    std::unordered_map<Node *, int, NodeHash, NodeEqual> distanceMap;
+    int heapSize;
+
+public:
+    NodeHeap()
+    {
+        nodeVec = std::vector<Node *>();
+        heapIndexMap = std::unordered_map<Node *, int, NodeHash, NodeEqual>();
+        distanceMap = std::unordered_map<Node *, int, NodeHash, NodeEqual>();
+        heapSize = 0;
+    }
+
+    bool isEmpty() { return heapSize == 0; }
+    bool isEntered(Node *node) { return heapIndexMap.find(node) != heapIndexMap.end(); }
+    bool isInheap(Node *node)
+    {
+        if (isEntered(node))
+            return heapIndexMap[node] != -1;
+        return false;
+    }
+
+    void heapify(int index, int heapSize)
+    {
+        int left = index * 2 + 1;
+        while (left < heapSize)
+        {
+            int least = left + 1 < heapSize && distanceMap[nodeVec[left + 1]] < distanceMap[nodeVec[left]] ? left + 1 : left;
+            least = distanceMap[nodeVec[least]] < distanceMap[nodeVec[index]] ? least : index;
+            if (least == index)
+                return;
+            swap_node(index, least);
+            index = least;
+            left = index * 2 + 1;
+        }
+    }
+
+    void heapinsert(int index)
+    {
+        while (distanceMap[nodeVec[index]] < distanceMap[nodeVec[((index - 1) >> 1)]])
+        {
+            swap_node(index, ((index - 1) >> 1));
+            index = ((index - 1) >> 1);
+        }
+    }
+
+    void swap_node(int i, int j)
+    {
+        heapIndexMap[nodeVec[i]] = j;
+        heapIndexMap[nodeVec[j]] = i;
+        Node *tmp = nodeVec[i];
+        nodeVec[i] = nodeVec[j];
+        nodeVec[j] = tmp;
+    }
+
+    std::pair<Node *, int> pop()
+    {
+        std::pair<Node *, int> res(nodeVec[0], distanceMap[nodeVec[0]]);
+        swap_node(0, --heapSize);
+        heapify(0, heapSize);
+        heapIndexMap[nodeVec[heapSize]] = -1;
+        distanceMap.erase(nodeVec[heapSize]);
+        nodeVec.erase(nodeVec.end() - 1);
+        return res;
+    }
+
+    void addOrUpdateOrIgnore(Node *node, int new_distance)
+    {
+        if (isInheap(node))
+        {
+            distanceMap[node] = std::min(distanceMap[node], new_distance);
+            heapinsert(heapIndexMap[node]);
+        }
+        if (!isEntered(node))
+        {
+            nodeVec[heapSize] = node;
+            heapIndexMap[node] = heapSize;
+            distanceMap[node] = new_distance;
+            heapinsert(heapSize++);
+        }
+    }
+};
+
+std::unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra2(Node *head);
 #endif
