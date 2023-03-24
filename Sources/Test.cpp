@@ -179,9 +179,26 @@ void Test_PrintAllPermutations()
         cout << cur << endl;
 }
 
+#define NORMAL
 void Test_NQueens()
 {
     int n = 14;
-    cout << "规模为" << n << "的棋盘有多少种放法: "
+
+    chrono::high_resolution_clock::time_point start_time = chrono::high_resolution_clock::now();
+
+#ifdef NORMAL
+    cout << "规模为" << n << "的棋盘有多少种放法(方法1) "
+         << NQueens_v1(n) << endl;
+#endif
+
+#ifdef BIT
+    cout << "规模为" << n << "的棋盘有多少种放法(方法2) "
          << NQueens_v2(n) << endl;
+#endif
+
+    chrono::high_resolution_clock::time_point end_time = chrono::high_resolution_clock::now();
+
+    chrono::milliseconds elapsed_time = chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+
+    cout << "Elapsed time: " << elapsed_time.count() << " milliseconds" << endl;
 }

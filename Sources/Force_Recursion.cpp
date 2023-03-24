@@ -191,7 +191,7 @@ int NQueens_v1(int n)
 {
     if (n < 1)
         return 0;
-    vector<int> record; // 每一行上的索引(第几列)(0~n - 1)
+    vector<int> record(n); // 每一行上的索引(第几列)(0~n - 1)
     return func_v5(record, 0, n);
 }
 

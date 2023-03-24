@@ -1,6 +1,7 @@
 #ifndef __FUNCTIONAL_H__
 #define __FUNCTIONAL_H__
 
+#include <chrono>
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
