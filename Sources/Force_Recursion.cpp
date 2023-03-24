@@ -186,3 +186,60 @@ int goLast(vector<int> &cards, int head, int last)
         return 0;
     return min(goFirst(cards, head + 1, last), goFirst(cards, head, last - 1));
 }
+
+int NQueens_v1(int n)
+{
+    if (n < 1)
+        return 0;
+    vector<int> record; // 每一行上的索引(第几列)(0~n - 1)
+    return func_v5(record, 0, n);
+}
+
+int func_v5(vector<int> &record, int i, int n)
+{
+    if (i == n)
+        return 1;
+    int res = 0;
+    for (int j = 0; j < n; j++) // j为可能放到第几列
+    {
+        if (isValid(record, i, j))
+        {
+            record[i] = j;
+            res += func_v5(record, i + 1, n);
+        }
+    }
+    return res;
+}
+
+bool isValid(vector<int> &record, int i, int j)
+{
+    for (int k = 0; k < i; k++) // k为前面的0 - i-1行
+    {
+        if (j == record[k] || abs(record[k] - j) == abs(k - i))
+            return false;
+    }
+    return true;
+}
+
+int NQueens_v2(int n)
+{
+    if (n < 1 || n > 32)
+        return 0;
+    int upperLim = n == 32 ? -1 : ((1 << n) - 1);
+    return func_v6(upperLim, 0, 0, 0);
+}
+
+int func_v6(int upperLim, int colLim, int leftDiaLim, int rightDiaLim)
+{
+    if (colLim == upperLim)
+        return 1;
+    int pos = 0, res = 0, mostRight = 0;
+    pos = upperLim & (~(colLim | leftDiaLim | rightDiaLim));
+    while (pos)
+    {
+        mostRight = pos & (~pos + 1);
+        pos -= mostRight;
+        res += func_v6(upperLim, colLim | mostRight, (leftDiaLim | mostRight) << 1, (rightDiaLim | mostRight) >> 1);
+    }
+    return res;
+}

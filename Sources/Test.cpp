@@ -2,6 +2,12 @@
 
 using namespace std;
 
+void Test_PrintIntBit()
+{
+    printInteger(-1);
+    printInteger(INT_MIN);
+}
+
 void Test_SortArr()
 {
     CreateArrDuiShuQi(TESTTIMES, MAXSIZE, MAXVAL, nullptr, nullptr, &QuickSort_v2, &ProcessSort);
@@ -171,4 +177,11 @@ void Test_PrintAllPermutations()
 {
     for (auto &cur : Permutation(string("abc")))
         cout << cur << endl;
+}
+
+void Test_NQueens()
+{
+    int n = 14;
+    cout << "规模为" << n << "的棋盘有多少种放法: "
+         << NQueens_v2(n) << endl;
 }

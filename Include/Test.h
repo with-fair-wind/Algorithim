@@ -13,6 +13,9 @@ const int TESTTIMES = 10000;
 const int MAXSIZE = 100;
 const int MAXVAL = 1000;
 
+// 常用
+void Test_PrintIntBit();
+
 // 排序(数组)
 void Test_SortArr();
 
@@ -36,4 +39,5 @@ void Test_GetMedianOfVector();
 void Test_Hanoi();
 void Test_PrintAllSubsquences();
 void Test_PrintAllPermutations();
+void Test_NQueens();
 #endif

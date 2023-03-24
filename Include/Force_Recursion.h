@@ -13,7 +13,7 @@ void hanoi(int n, int real, std::string from, std::string help, std::string to);
 void printAllSubsequence_v2(const std::string &str);
 // [0~i-1]已经确定好了，打印包括i索引及后面所有字符的全部子序列(传入参数i最大只能为str.size())
 void process(std::vector<char> &chs, size_t i);
-// 法二
+//// 方法二
 void printAllSubsquence_v1(std::string str);
 void func_v1(std::string str, std::string output);
 
@@ -51,4 +51,14 @@ int winScore(std::vector<int> &cards);
 int goFirst(std::vector<int> &cards, int head, int last);
 int goLast(std::vector<int> &cards, int head, int last);
 
+// N皇后问题
+int NQueens_v1(int n);
+// [0~i-1]已经确定好了，从第i行开始放，有多少种方法,record前面i-1行的皇后放在哪一列上
+int func_v5(std::vector<int> &record, int i, int n);
+// 第i行的皇后放到第j行行不行
+bool isValid(std::vector<int> &record, int i, int j);
+//// 方法二(位运算加速)
+int NQueens_v2(int n);
+// [0~i-1]已经确定好了，从第i行开始放，有多少种方法
+int func_v6(int upperLim, int colLim, int leftDiaLim, int rightDiaLim);
 #endif // __FORCE_RECURSION__
