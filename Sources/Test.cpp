@@ -223,4 +223,6 @@ void Test_RandomPoolClass()
     cout << "kk appear how many times: " << num[0] << endl;
     cout << "bentong appear how many times: " << num[1] << endl;
     cout << "yan appear how many times: " << num[2] << endl;
+    myRandomPool.delete_Key("kk");
+    cout << "today is a beautiful day^_^" << endl;
 }

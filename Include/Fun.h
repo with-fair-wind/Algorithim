@@ -72,12 +72,13 @@ public:
         if (m_KeyIndexMap.find(key) != m_KeyIndexMap.end())
         {
             int DeleteIndex = m_KeyIndexMap[key];
-            auto iter = m_KeyIndexMap.end() - 1;
-            iter->second = DeleteIndex;
-            m_KeyIndexMap.erase(key);
+            int lastIndex = --m_size;
+            T lastKey = m_IndexKeyMap[lastIndex];
 
-            m_IndexKeyMap[DeleteIndex] = m_IndexKeyMap[--m_size];
-            m_IndexKeyMap.erase(m_size);
+            m_KeyIndexMap[lastKey] = DeleteIndex;
+            m_KeyIndexMap.erase(key);
+            m_IndexKeyMap[DeleteIndex] = lastKey;
+            m_IndexKeyMap.erase(lastIndex);
         }
     }
 
