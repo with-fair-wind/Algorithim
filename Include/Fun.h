@@ -84,11 +84,10 @@ public:
 
     T getRandom()
     {
-        if (m_size > 0)
-        {
-            std::uniform_int_distribution<int> u(0, m_size - 1);
-            return m_IndexKeyMap[u(m_rng)];
-        }
+        if (m_size == 0)
+            return T();
+        std::uniform_int_distribution<int> u(0, m_size - 1);
+        return m_IndexKeyMap[u(m_rng)];
     }
 };
 
