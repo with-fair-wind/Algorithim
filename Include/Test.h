@@ -9,12 +9,15 @@
 #include "Sort.h"
 #include "TrieTree_Greedy.h"
 
-const int TESTTIMES = 10000;
+const int TESTTIMES = 10000000;
 const int MAXSIZE = 100;
 const int MAXVAL = 1000;
 
 // 常用
 void Test_PrintIntBit();
+
+// 概率
+void Test_RandomPoolClass();
 
 // 排序(数组)
 void Test_SortArr();

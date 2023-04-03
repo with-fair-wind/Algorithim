@@ -10,7 +10,9 @@
 #include <random>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 #include <utility>
+#include <vector>
 
 // uniform_real_distribution用于生成随机浮点数(半闭半开)
 // uniform_int_distribution用于生成整数浮点数(闭区间)
@@ -41,6 +43,53 @@ int Range2RangeEqualProbability(int a, int b, int c, int d);
 int NoEqual2EqualReturnZorOne();
 // 任意x,x属于[0, 1),[0, x)范围上的数出现的概率由x调整为x平方
 double xToPower2();
+// RandomPool结构,三个方法都是O(1)的时间复杂度
+// insert(key):将某个key加入到该结构，做到不重复加入
+// delete(key):将原本在结构中的某个key移除
+// getRandom(): 等概率随机返回结构中的任何一个key
+template <typename T>
+class RandomPool
+{
+private:
+    std::unordered_map<T, int> m_KeyIndexMap;
+    std::unordered_map<int, T> m_IndexKeyMap;
+    int m_size;
+    std::mt19937 m_rng;
+
+public:
+    RandomPool() : m_KeyIndexMap(), m_IndexKeyMap(), m_size(0), m_rng(std::time(0)) {}
+    void insert_Key(T key)
+    {
+        if (m_KeyIndexMap.find(key) == m_KeyIndexMap.end())
+        {
+            m_KeyIndexMap.emplace(key, m_size);
+            m_IndexKeyMap.emplace(m_size++, key);
+        }
+    }
+
+    void delete_Key(T key)
+    {
+        if (m_KeyIndexMap.find(key) != m_KeyIndexMap.end())
+        {
+            int DeleteIndex = m_KeyIndexMap[key];
+            auto iter = m_KeyIndexMap.end() - 1;
+            iter->second = DeleteIndex;
+            m_KeyIndexMap.erase(key);
+
+            m_IndexKeyMap[DeleteIndex] = m_IndexKeyMap[--m_size];
+            m_IndexKeyMap.erase(m_size);
+        }
+    }
+
+    T getRandom()
+    {
+        if (m_size > 0)
+        {
+            std::uniform_int_distribution<int> u(0, m_size - 1);
+            return m_IndexKeyMap[u(m_rng)];
+        }
+    }
+};
 
 /*
 ***位运算相关***

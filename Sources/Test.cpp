@@ -202,3 +202,25 @@ void Test_NQueens()
 
     cout << "Elapsed time: " << elapsed_time.count() << " milliseconds" << endl;
 }
+
+void Test_RandomPoolClass()
+{
+    RandomPool<string> myRandomPool;
+    myRandomPool.insert_Key("kk");
+    myRandomPool.insert_Key("bentong");
+    myRandomPool.insert_Key("yan");
+    int num[3] = {0, 0, 0};
+    for (size_t i = 0; i < TESTTIMES; i++)
+    {
+        string res = myRandomPool.getRandom();
+        if (res == "kk")
+            num[0]++;
+        else if (res == "bentong")
+            num[1]++;
+        else
+            num[2]++;
+    }
+    cout << "kk appear how many times: " << num[0] << endl;
+    cout << "bentong appear how many times: " << num[1] << endl;
+    cout << "yan appear how many times: " << num[2] << endl;
+}
