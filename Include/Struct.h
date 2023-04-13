@@ -155,3 +155,9 @@ class UnionFinding
 // 果有一片1连在一起，这个部分叫做一个岛，求一个矩阵中有多少个岛
 int Islandcounts(std::vector<std::vector<int>> &grid);
 void infect(std::vector<std::vector<int>> &grid, int i, int j, int rows, int columns);
+
+// KMP
+// 字符串str1和str2，str1是否包含str2，如果包含返回str2在str1中开始的位置。
+// 如何做到时间复杂度O(N)
+int KMP(const std::string &s, const std::string &m);
+void getNextArray(size_t *nextArr, const std::string &m);

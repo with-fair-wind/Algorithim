@@ -226,3 +226,10 @@ void Test_RandomPoolClass()
     myRandomPool.delete_Key("kk");
     cout << "today is a beautiful day^_^" << endl;
 }
+
+void Test_KMP()
+{
+    string str = "abcabcababaccc";
+    string match = "ababa";
+    cout << "GetIndexOf: " << KMP(str, match);
+}

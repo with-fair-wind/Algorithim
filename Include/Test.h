@@ -44,4 +44,7 @@ void Test_Hanoi();
 void Test_PrintAllSubsquences();
 void Test_PrintAllPermutations();
 void Test_NQueens();
+
+// 常用结构
+void Test_KMP();
 #endif

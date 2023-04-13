@@ -35,3 +35,49 @@ void infect(std::vector<std::vector<int>> &grid, int i, int j, int rows, int col
     infect(grid, i, j + 1, rows, columns);
     infect(grid, i, j - 1, rows, columns);
 }
+
+int KMP(const string &s, const string &m)
+{
+    if (s.length() < 1 || m.length() < 1 || s.length() < m.length())
+        return -1;
+    size_t *nextArr = new size_t[m.length()];
+    getNextArray(nextArr, m);
+    size_t s_index = 0, m_index = 0;
+    while (s_index < s.length() && m_index < m.length())
+    {
+        if (s[s_index] == m[m_index])
+        {
+            s_index++;
+            m_index++;
+        }
+        else if (m_index == 0) // nextArr[m_index]==-1
+            s_index++;
+        else
+            m_index = nextArr[m_index];
+    }
+    delete[] nextArr;
+    return m_index == m.length() ? s_index - m_index : -1;
+}
+
+void getNextArray(size_t *nextArr, const string &m)
+{
+    if (m.length() == 1)
+    {
+        nextArr[0] = -1;
+        return;
+    }
+    nextArr[0] = -1;
+    nextArr[1] = 0;
+    size_t index = 2;
+    size_t cn = 0;
+    while (index < m.length())
+    {
+        if (m[index - 1] == m[cn])
+            nextArr[index++] = ++cn;
+        else if (cn > 0)
+            cn = nextArr[cn];
+        else
+            nextArr[index++] = 0;
+    }
+    return;
+}
