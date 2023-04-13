@@ -7,6 +7,7 @@
 #include "Linked_List.h"
 #include "Silly_White_Sweet.h"
 #include "Sort.h"
+#include "Struct.h"
 #include "TrieTree_Greedy.h"
 
 const int TESTTIMES = 10000000;
