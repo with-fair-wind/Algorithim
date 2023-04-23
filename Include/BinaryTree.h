@@ -64,4 +64,41 @@ TreeNode *reconPreOrder(std::queue<std::string> &queue);
 void PrintPaperFolding(int N);
 // 以中序遍历的方式打印以当前节点为根节点的整棵树(i为当前节点来到了第几层)
 void process_v4(int i, int N, bool down);
+
+// 树形dp
+// 二叉树节点间的最大距离问题
+// 从二叉树的节点a出发，可以向上或者向下走，但沿途的节点只能经过一次，到达节点b时路
+// 径上的节点个数叫作a到b的距离，那么二叉树任何两个节点之间都有距离，求整棵树上的最大距离。
+int maxDistance(TreeNode *head);
+std::pair<int, int> process_v5(TreeNode *head);
+
+// 派对的最大快乐值
+// 员工信息的定义如下 :
+struct Employee
+{
+    int happy;                          // 这名员工可以带来的快乐值
+    std::list<Employee *> subordinates; // 这名员工有哪些直接下级
+};
+// 公司的每个员工都符合 Employee 类的描述。整个公司的人员结构可以看作是一棵标准的、 没有环的多叉树。
+// 树的头节点是公司唯一的老板。除老板之外的每个员工都有唯一的直接上级。 叶节点是没有
+// 任何下属的基层员工(subordinates列表为空)，除基层员工外，每个员工都有一个或多个直接下级。
+// 这个公司现在要办party，你可以决定哪些员工来，哪些员工不来。但是要遵循如下规则。
+// 1.如果某个员工来了，那么这个员工的所有直接下级都不能来
+// 2.派对的整体快乐值是所有到场员工快乐值的累加
+// 3.你的目标是让派对的整体快乐值尽量大
+// 给定一棵多叉树的头节点boss，请返回派对的最大快乐值。
+int maxHappy(Employee *head);
+std::pair<int, int> process_v6(Employee *head);
+
+// Morris遍历
+// 一种遍历二叉树的方式，并且时间复杂度O(N)，额外空间复杂度O(1)
+// 通过利用原树中大量空闲指针的方式，达到节省空间的目的
+void morris(TreeNode *head);
+void morrisIn(TreeNode *head);
+void morrisPre(TreeNode *head);
+void morrisPos(TreeNode *head);
+void printInReverse(TreeNode *head);
+TreeNode *reserveRightTree(TreeNode *head);
+// 应用:判断搜索二叉树
+bool isBST_v3(TreeNode *head);
 #endif

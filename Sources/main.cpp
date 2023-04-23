@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 
-    Test_KMP();
+    Test_Morris();
 
     return 0;
 }

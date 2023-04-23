@@ -1,4 +1,5 @@
 #include "Fun.h"
+#include <list>
 #include <stack>
 #include <unordered_map>
 
@@ -161,3 +162,65 @@ void infect(std::vector<std::vector<int>> &grid, int i, int j, int rows, int col
 // 如何做到时间复杂度O(N)
 int KMP(const std::string &s, const std::string &m);
 void getNextArray(size_t *nextArr, const std::string &m);
+
+// Manacher算法解决的问题
+// 字符串str中，最长回文子串的长度求解
+// 如何做到时间复杂度O(N) 完成
+int Manacher(const std::string &str);
+std::string ManacherString(const std::string &str);
+
+// 滑动窗口窗口内最大值或者最小值
+// 双端队列 头->尾 ==  大->小 窗口最大值为双端队列头部值(新进来的值确保落在比它大的值的后面)
+class WindowMax
+{
+private:
+    int L;
+    int R;
+    std::vector<int> m_arr;
+    std::deque<int> m_qmax;
+
+public:
+    WindowMax(const std::vector<int> &arr)
+    {
+        L = 0;
+        R = 0; // 窗口维持[L, R].范围
+        m_arr = arr;
+        m_qmax = std::deque<int>();
+    }
+
+    void addNumFromRight()
+    {
+        if (R == (int)m_arr.size())
+            return;
+        while (!m_qmax.empty() && m_arr[R] >= m_arr[m_qmax.back()])
+            m_qmax.pop_back();
+        m_qmax.push_back(R++);
+    }
+
+    void rmNumFromLeft()
+    {
+        if (L >= R)
+            return;
+        if (m_qmax.front() == L++)
+            m_qmax.pop_front();
+    }
+
+    int getMax()
+    {
+        if (!m_qmax.empty())
+            return m_qmax.front();
+    }
+};
+// 如果数组长度为n，窗口大小为w，则一共产生n - w + 1个窗口的最大值。
+// 请实现一个函数。 输入:整型数组arr，窗口大小为w。
+// 输出 : 一个长度为n - w + 1的数组res，res [i] 表示每一种窗口状态下的最大值
+void getMaxWindow(std::vector<int> &resArr, const std::vector<int> &arr, int WinSize);
+
+// 在数组中想找到一个数，左边和右边比这个数小、且离这个数最近的位置。
+// 如果对每一个数都想求这样的信息，能不能整体代价达到O(N)？需要使用到单调栈结构
+// 单调栈结构的原理和实现
+void getNearLess(std::vector<std::pair<int, int>> &res, const std::vector<int> &arr);
+// 单调栈应用：
+// 定义：正数数组中累积和与最小值的乘积，假设叫做指标A。
+// 给定一个数组，请返回子数组中，指标A最大的值。
+int MaxTargetA(const std::vector<int> &arr);

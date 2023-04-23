@@ -24,6 +24,7 @@ const int FIXED_PROBABILITY = 0.84;
 */
 // 打印数组
 void printArray(int arr[], int size);
+void printArray(const std::vector<int> &arr);
 // 基于位运算^的数组元素交换
 void swap_bit(int arr[], int i, int j);
 // 基于下标的数组元素交换
@@ -72,4 +73,7 @@ int oneMinIndex(int *arr, int size);
 void CreateArrDuiShuQi(int testTimes, int maxSize, int maxValue, void (*pt1)(int *arr, int size), void (*pt2)(int *arr, int size), void (*pt3)(int *arr, int L, int R), void (*pt4)(int *arr, int L, int R));
 // 寻找数组中位数
 void CreateMedianDuiShuQi(int testTimes, int maxSize, int maxValue, double (*pt1)(std::vector<int> &vec), double (*pt2)(std::vector<int> &vec));
+// 单调栈寻找数组中左右最近的比当前值小的值的位置
+void CreateGetNearLessDuiShuQi(int testTimes, int maxSize, int maxValue, void (*pt1)(std::vector<std::pair<int, int>> &res, const std::vector<int> &arr), void (*pt2)(std::vector<std::pair<int, int>> &res, const std::vector<int> &arr));
+void CreateMaxTargetADuiShuQi(int testTimes, int maxSize, int maxValue, int (*pt1)(const std::vector<int> &arr), int (*pt2)(const std::vector<int> &arr));
 #endif

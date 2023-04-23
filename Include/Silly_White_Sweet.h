@@ -4,6 +4,7 @@
 #include "Fun.h"
 #include <algorithm>
 
-double getMedianOfArray(std::vector<int> &vec);
-
+double getMedian_easy(std::vector<int> &vec);
+void getNearLess_easy(std::vector<std::pair<int, int>> &res, const std::vector<int> &arr);
+int MaxTargetA_easy(const std::vector<int> &arr);
 #endif

@@ -41,7 +41,7 @@ int KMP(const string &s, const string &m)
     if (s.length() < 1 || m.length() < 1 || s.length() < m.length())
         return -1;
     size_t *nextArr = new size_t[m.length()];
-    getNextArray(nextArr, m);
+    getNextArray(nextArr, m); // (索引i前)前缀和后缀相等的最大长度(不包含整体)
     size_t s_index = 0, m_index = 0;
     while (s_index < s.length() && m_index < m.length())
     {
@@ -80,4 +80,122 @@ void getNextArray(size_t *nextArr, const string &m)
             nextArr[index++] = 0;
     }
     return;
+}
+
+int Manacher(const string &str)
+{
+    if (str.length() < 1)
+        return 0;
+    string fixStr = ManacherString(str);
+    int MaxLen = INT_MIN;
+    int maxPalindRadius[fixStr.length()];
+    // 回文半径包括中间的那个，比如bab,回文半径是2
+    // R代表之前所有扩的位置中所到达所有最右回文最右边界的下一个位置，就是如果发现i对应的最长回文半径更大后，就更新R这个边界,R只会递增
+    // R递增Center就更新(右边界突破了就更新)(同步更新)
+    int R = -1, Center = -1;
+    for (int i = 0; i < static_cast<int>(fixStr.length()); i++)
+    {
+        maxPalindRadius[i] = R > i ? min(maxPalindRadius[2 * Center - i], R - i) : 1;
+        while (i + maxPalindRadius[i] < static_cast<int>(fixStr.length()) && i - maxPalindRadius[i] > -1)
+        {
+            if (fixStr[i + maxPalindRadius[i]] == fixStr[i - maxPalindRadius[i]])
+                maxPalindRadius[i]++;
+            else
+                break;
+        }
+        if (i + maxPalindRadius[i] > R)
+        {
+            R = i + maxPalindRadius[i];
+            Center = i;
+        }
+        // 以上才是重点,求出每个索引对应的最长回文子串长度
+        MaxLen = max(MaxLen, maxPalindRadius[i]);
+    }
+    return MaxLen - 1;
+}
+
+string ManacherString(const string &str)
+{
+    string output;
+    for (char c : str)
+    {
+        output += '#';
+        output += c;
+    }
+    output += '#';
+    return output;
+}
+
+void getMaxWindow(vector<int> &resArr, const vector<int> &arr, int WinSize)
+{
+    if (arr.size() == 0 || WinSize > static_cast<int>(arr.size()) || WinSize < 1)
+        return;
+    deque<int> qmax;
+    for (int i = 0; i < static_cast<int>(arr.size()); i++)
+    {
+        while (!qmax.empty() && arr[qmax.back()] <= arr[i])
+            qmax.pop_back();
+        qmax.push_back(i);
+        if (i - WinSize == qmax.front())
+            qmax.pop_front();
+        if (i >= WinSize - 1)
+            resArr.push_back(arr[qmax.front()]);
+    }
+}
+
+void getNearLess(vector<pair<int, int>> &res, const vector<int> &arr)
+{
+    stack<list<int>> LessStack; // 从小到大
+    for (int i = 0; i < static_cast<int>(arr.size()); i++)
+    {
+        while (!LessStack.empty() && arr[LessStack.top().front()] > arr[i])
+        {
+            list<int> SameList = LessStack.top();
+            LessStack.pop();
+            for (const int &tmp : SameList)
+                res[tmp] = LessStack.empty() ? make_pair(-1, i) : make_pair(LessStack.top().back(), i);
+        }
+        if (!LessStack.empty() && arr[LessStack.top().front()] == arr[i])
+            LessStack.top().push_back(i);
+        else
+            LessStack.push(list<int>{i});
+    }
+    while (!LessStack.empty())
+    {
+        list<int> SameList = LessStack.top();
+        LessStack.pop();
+        for (const int &tmp : SameList)
+            res[tmp] = LessStack.empty() ? make_pair(-1, -1) : make_pair(LessStack.top().back(), -1);
+    }
+}
+
+int MaxTargetA(const std::vector<int> &arr)
+{
+    int max = INT_MIN;
+    vector<int> Sum = arr;
+    for (int i = 1; i < static_cast<int>(Sum.size()); i++)
+        Sum[i] = Sum[i - 1] + arr[i];
+    stack<list<int>> LessStack;
+    for (int i = 0; i < static_cast<int>(arr.size()); i++)
+    {
+        while (!LessStack.empty() && arr[LessStack.top().front()] > arr[i])
+        {
+            list<int> SameList = LessStack.top();
+            LessStack.pop();
+            for (const int &tmp : SameList)
+                max = std::max(max, LessStack.empty() ? Sum[i - 1] * arr[tmp] : (Sum[i - 1] - Sum[LessStack.top().back()]) * arr[tmp]);
+        }
+        if (!LessStack.empty() && arr[LessStack.top().front()] == arr[i])
+            LessStack.top().push_back(i);
+        else
+            LessStack.push(list<int>{i});
+    }
+    while (!LessStack.empty())
+    {
+        list<int> SameList = LessStack.top();
+        LessStack.pop();
+        for (const int &tmp : SameList)
+            max = std::max(max, LessStack.empty() ? Sum[arr.size() - 1] * arr[tmp] : (Sum[arr.size() - 1] - Sum[LessStack.top().back()]) * arr[tmp]);
+    }
+    return max;
 }

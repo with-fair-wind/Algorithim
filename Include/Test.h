@@ -10,9 +10,9 @@
 #include "Struct.h"
 #include "TrieTree_Greedy.h"
 
-const int TESTTIMES = 10000000;
-const int MAXSIZE = 100;
-const int MAXVAL = 1000;
+const int TESTTIMES = 2000000;
+const int MAXSIZE = 10;
+const int MAXVAL = 20;
 
 // 常用
 void Test_PrintIntBit();
@@ -33,6 +33,7 @@ void Test_PreInPosTraversal();
 void Test_IsBST();
 void Test_SerializeAndReconstructTree();
 void Test_PrintPaperFolding();
+void Test_Morris();
 
 // 贪心算法
 void Test_LowestLexicography();
@@ -47,4 +48,8 @@ void Test_NQueens();
 
 // 常用结构
 void Test_KMP();
+void Test_Manacher();
+void Test_GetMaxWindow();
+void Test_GetNearLess();
+void Test_MaxTargetA();
 #endif

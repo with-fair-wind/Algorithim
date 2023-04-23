@@ -144,6 +144,23 @@ void Test_PrintPaperFolding()
     PrintPaperFolding(3);
 }
 
+void Test_Morris()
+{
+
+    TreeNode *head = new TreeNode(4);
+    head->left = new TreeNode(2);
+    head->right = new TreeNode(6);
+    head->left->left = new TreeNode(1);
+    head->left->right = new TreeNode(3);
+    head->right->left = new TreeNode(5);
+    head->right->right = new TreeNode(7);
+
+    morrisIn(head);
+    morrisPre(head);
+    morrisPos(head);
+    cout << (isBST_v3(head) ? "today is a beautiful day^_^" : "Oops..what a fuck!") << endl;
+}
+
 void Test_LowestLexicography()
 {
     vector<string> strs1{"b", "ba"};
@@ -160,7 +177,7 @@ void Test_LessMoneySplitGold()
 
 void Test_GetMedianOfVector()
 {
-    CreateMedianDuiShuQi(TESTTIMES, MAXSIZE, MAXVAL, getMedian, getMedianOfArray);
+    CreateMedianDuiShuQi(TESTTIMES, MAXSIZE, MAXVAL, getMedian, getMedian_easy);
 }
 
 void Test_Hanoi()
@@ -232,4 +249,29 @@ void Test_KMP()
     string str = "abcabcababaccc";
     string match = "ababa";
     cout << "GetIndexOf: " << KMP(str, match);
+}
+
+void Test_Manacher()
+{
+    string str = "abc1234321ab";
+    cout << "MaxLength: " << Manacher(str) << endl;
+}
+
+void Test_GetMaxWindow()
+{
+    vector<int> arr{4, 3, 5, 4, 3, 3, 6, 7};
+    int WinSize = 3;
+    vector<int> Result;
+    getMaxWindow(Result, arr, WinSize);
+    printArray(Result);
+}
+
+void Test_GetNearLess()
+{
+    CreateGetNearLessDuiShuQi(TESTTIMES, MAXSIZE, MAXVAL, getNearLess, getNearLess_easy);
+}
+
+void Test_MaxTargetA()
+{
+    CreateMaxTargetADuiShuQi(TESTTIMES, MAXSIZE, MAXVAL, MaxTargetA, MaxTargetA_easy);
 }

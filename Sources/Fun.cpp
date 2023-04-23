@@ -9,6 +9,13 @@ void printArray(int arr[], int size)
     cout << endl;
 }
 
+void printArray(const vector<int> &arr)
+{
+    for (const auto &tmp : arr)
+        cout << tmp << " ";
+    cout << endl;
+}
+
 void swap_bit(int arr[], int i, int j)
 { // 如果i == j, 自己异或自己直接置零了
     if (i != j)
@@ -263,6 +270,50 @@ void CreateMedianDuiShuQi(int testTimes, int maxSize, int maxValue, double (*pt1
         if (!success)
         {
             cout << "m1: " << m1 << " m2: " << m2 << endl;
+            break;
+        }
+    }
+    cout << (success ? "today is a beautiful day^_^" : "Oops..what a fuck!") << endl;
+}
+
+void CreateGetNearLessDuiShuQi(int testTimes, int maxSize, int maxValue, void (*pt1)(vector<pair<int, int>> &res, const vector<int> &arr), void (*pt2)(vector<pair<int, int>> &res, const vector<int> &arr))
+{
+    srand(time(nullptr));
+    bool success = true;
+    for (int i = 0; i < testTimes; i++)
+    {
+        int size = rand() % maxSize + 1;
+        vector<pair<int, int>> res1(size);
+        vector<pair<int, int>> res2(size);
+        vector<int> arr;
+        for (int j = 0; j < size; j++)
+            arr.push_back(rand() % (maxValue + 1) - rand() % (maxValue + 1));
+        pt1(res1, arr);
+        pt2(res2, arr);
+        if (res1 != res2)
+        {
+            success = false;
+            printArray(arr);
+            break;
+        }
+    }
+    cout << (success ? "today is a beautiful day^_^" : "Oops..what a fuck!") << endl;
+}
+
+void CreateMaxTargetADuiShuQi(int testTimes, int maxSize, int maxValue, int (*pt1)(const std::vector<int> &arr), int (*pt2)(const std::vector<int> &arr))
+{
+    srand(time(nullptr));
+    bool success = true;
+    for (int i = 0; i < testTimes; i++)
+    {
+        int size = rand() % maxSize + 1;
+        vector<int> arr;
+        for (int j = 0; j < size; j++)
+            arr.push_back(rand() % (maxValue + 1));
+        if (pt1(arr) != pt2(arr))
+        {
+            success = false;
+            printArray(arr);
             break;
         }
     }

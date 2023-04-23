@@ -340,3 +340,207 @@ void process_v4(int i, int N, bool down)
     cout << (down ? "凹" : "凸") << " ";
     process_v4(i + 1, N, false);
 }
+
+int maxDistance(TreeNode *head)
+{
+    return process_v5(head).first;
+}
+
+pair<int, int> process_v5(TreeNode *head)
+{
+    if (head == nullptr)
+        return make_pair(0, 0);
+    pair<int, int> leftInfo = process_v5(head->left);
+    pair<int, int> rightInfo = process_v5(head->right);
+    int maxDistance = std::max(leftInfo.second + rightInfo.second + 1, (std::max(leftInfo.first, rightInfo.first)));
+    int maxHeight = std::max(leftInfo.second, rightInfo.second) + 1;
+    return make_pair(maxDistance, maxHeight);
+}
+
+int maxHappy(Employee *head)
+{
+    pair<int, int> maxHappy = process_v6(head);
+    return std::max(maxHappy.first, maxHappy.second);
+}
+
+pair<int, int> process_v6(Employee *head)
+{
+    if (head->subordinates.empty())
+        return make_pair(head->happy, 0);
+    int noHeadMaxVal = 0, headMaxVal = head->happy;
+    for (const auto &cur : head->subordinates)
+    {
+        pair<int, int> res = process_v6(cur);
+        noHeadMaxVal += std::max(res.first, res.second);
+        headMaxVal += res.second;
+    }
+    return make_pair(headMaxVal, noHeadMaxVal);
+}
+
+void morris(TreeNode *head)
+{
+    if (head == nullptr)
+        return;
+    TreeNode *cur = head;
+    TreeNode *mostRight = nullptr;
+    while (cur)
+    {
+        mostRight = cur->left;
+        if (mostRight)
+        {
+            while (mostRight->right != nullptr && mostRight->right != cur)
+                mostRight = mostRight->right;
+            if (mostRight->right == nullptr) // 第一次遍历到此节点cur
+            {
+                mostRight->right = cur;
+                cur = cur->left;
+                continue;
+            }
+            mostRight->right = nullptr; // 第二次遍历到此节点cur
+        }
+        cur = cur->right; // 没有左孩子只会被遍历一次
+    }
+}
+
+void morrisIn(TreeNode *head)
+{
+    if (head == nullptr)
+        return;
+    TreeNode *cur = head;
+    TreeNode *mostRight = nullptr;
+    while (cur)
+    {
+        mostRight = cur->left;
+        if (mostRight)
+        {
+            while (mostRight->right != nullptr && mostRight->right != cur)
+                mostRight = mostRight->right;
+            if (mostRight->right == nullptr)
+            {
+                mostRight->right = cur;
+                cur = cur->left;
+                continue;
+            }
+            mostRight->right = nullptr;
+        }
+        cout << cur->val << " ";
+        cur = cur->right;
+    }
+    cout << endl;
+}
+
+void morrisPre(TreeNode *head)
+{
+    if (head == nullptr)
+        return;
+    TreeNode *cur = head;
+    TreeNode *mostRight = nullptr;
+    while (cur)
+    {
+        mostRight = cur->left;
+        if (mostRight)
+        {
+            while (mostRight->right != nullptr && mostRight->right != cur)
+                mostRight = mostRight->right;
+            if (mostRight->right == nullptr)
+            {
+                cout << cur->val << " ";
+                mostRight->right = cur;
+                cur = cur->left;
+                continue;
+            }
+            mostRight->right = nullptr;
+        }
+        else
+            cout << cur->val << " ";
+        cur = cur->right;
+    }
+    cout << endl;
+}
+
+// 逆序打印左树右边界
+void morrisPos(TreeNode *head)
+{
+    if (head == nullptr)
+        return;
+    TreeNode *cur = head;
+    TreeNode *mostRight = nullptr;
+    while (cur)
+    {
+        mostRight = cur->left;
+        if (mostRight)
+        {
+            while (mostRight->right != nullptr && mostRight->right != cur)
+                mostRight = mostRight->right;
+            if (mostRight->right == nullptr) // 第一次遍历到此节点cur
+            {
+                mostRight->right = cur;
+                cur = cur->left;
+                continue;
+            }
+            mostRight->right = nullptr; // 第二次遍历到此节点cur
+            printInReverse(cur->left);  // ***一定要放在上一句代码下面***
+        }
+        cur = cur->right;
+    }
+    printInReverse(head);
+    cout << endl;
+}
+
+void printInReverse(TreeNode *head)
+{
+    TreeNode *tail = reserveRightTree(head);
+    TreeNode *cur = tail;
+    while (cur)
+    {
+        cout << cur->val << " ";
+        cur = cur->right;
+    }
+    reserveRightTree(tail);
+}
+
+TreeNode *reserveRightTree(TreeNode *head)
+{
+    if (head == nullptr)
+        return nullptr;
+    TreeNode *prev = nullptr;
+    TreeNode *next = nullptr;
+    while (head)
+    {
+        next = head->right;
+        head->right = prev;
+        prev = head;
+        head = next;
+    }
+    return prev;
+}
+
+bool isBST_v3(TreeNode *head)
+{
+    if (head == nullptr)
+        return true;
+    TreeNode *cur = head;
+    TreeNode *mostRight = nullptr;
+    int prevNum = INT_MIN;
+    while (cur)
+    {
+        mostRight = cur->left;
+        if (mostRight)
+        {
+            while (mostRight->right != nullptr && mostRight->right != cur)
+                mostRight = mostRight->right;
+            if (mostRight->right == nullptr)
+            {
+                mostRight->right = cur;
+                cur = cur->left;
+                continue;
+            }
+            mostRight->right = nullptr;
+        }
+        if (cur->val < prevNum)
+            return false;
+        prevNum = cur->val;
+        cur = cur->right;
+    }
+    return true;
+}
