@@ -10,9 +10,9 @@
 #include "Struct.h"
 #include "TrieTree_Greedy.h"
 
-const int TESTTIMES = 2000000;
+const int TESTTIMES = 20000;
 const int MAXSIZE = 10;
-const int MAXVAL = 20;
+const int MAXVAL = 100000;
 
 // 常用
 void Test_PrintIntBit();
@@ -52,4 +52,5 @@ void Test_Manacher();
 void Test_GetMaxWindow();
 void Test_GetNearLess();
 void Test_MaxTargetA();
+void Test_BitCal();
 #endif

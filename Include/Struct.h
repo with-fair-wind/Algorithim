@@ -3,6 +3,36 @@
 #include <stack>
 #include <unordered_map>
 
+// 位图Bitmap
+class BitMap
+{
+private:
+    long long *bits;
+
+public:
+    BitMap(int max) { bits = new long long[(max + 64) >> 6]; }
+    ~BitMap()
+    {
+        if (bits)
+            delete[] bits;
+    }
+    void addNum(int num) { bits[num >> 6] |= (1LL << (num & 63)); } // num % 64 == num & 63(仅限于2的倍数取余)
+    void delNum(int num) { bits[num >> 6] &= ~(1LL << (num & 63)); }
+    bool containNum(int num) { return (bits[num >> 6] & (1LL << (num & 63))) ^ 0; }
+
+    int flip(int n) { return n ^ 1; }
+    int sign(int n) { return flip((n >> 31) & 1); } // 正数是1,负数是0
+    int getMax(int a, int b);
+
+    int negNum(int num) { return add(~num, 1); }
+    bool isNeg(int num) { return (num >> 31) & 1; }
+    int add(int a, int b);
+    int minus(int a, int b) { return add(a, negNum(b)); }
+    int multi(int a, int b);
+    int div(int a, int b);
+    int divide(int a, int b);
+};
+
 // RandomPool结构
 // 三个方法都是O(1)的时间复杂度
 // insert(key):将某个key加入到该结构，做到不重复加入

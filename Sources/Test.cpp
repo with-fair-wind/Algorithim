@@ -212,7 +212,6 @@ void Test_NQueens()
     cout << "规模为" << n << "的棋盘有多少种放法(方法2) "
          << NQueens_v2(n) << endl;
 #endif
-
     chrono::high_resolution_clock::time_point end_time = chrono::high_resolution_clock::now();
 
     chrono::milliseconds elapsed_time = chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
@@ -274,4 +273,36 @@ void Test_GetNearLess()
 void Test_MaxTargetA()
 {
     CreateMaxTargetADuiShuQi(TESTTIMES, MAXSIZE, MAXVAL, MaxTargetA, MaxTargetA_easy);
+}
+
+void Test_BitCal()
+{
+    BitMap bmap(30);
+    cout << bmap.getMax(2147483647, -2147480000) << endl;
+
+    int a = 14, b = -7;
+    cout << bmap.add(a, b) << " " << bmap.minus(a, b) << " "
+         << bmap.multi(a, b) << " " << bmap.divide(a, b) << endl;
+
+    a = INT_MIN, b = 32;
+    cout << bmap.divide(a, b) << endl;
+
+    srand(time(nullptr));
+    bool success = true;
+    for (int i = 0; i < TESTTIMES; i++)
+    {
+        int a = rand() % (MAXVAL + 1) - rand() % (MAXVAL + 1);
+        int b = rand() % (MAXVAL + 1) - rand() % (MAXVAL + 1);
+        if (bmap.add(a, b) != (a + b))
+            success = false;
+        if (bmap.minus(a, b) != (a - b))
+            success = false;
+        if (bmap.multi(a, b) != (a * b))
+            success = false;
+        if (bmap.divide(a, b) != (a / b))
+            success = false;
+        if (!success)
+            break;
+    }
+    cout << (success ? "today is a beautiful day^_^" : "Oops..what a fuck!") << endl;
 }
