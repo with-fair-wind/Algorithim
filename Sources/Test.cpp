@@ -196,6 +196,13 @@ void Test_PrintAllPermutations()
         cout << cur << endl;
 }
 
+void Test_winScore()
+{
+    vector<int> arr = {1, 9, 1};
+    cout << "winScore: " << winScore(arr) << endl;
+    cout << "winScoreDP: " << winScoreDP(arr) << endl;
+}
+
 #define NORMAL
 void Test_NQueens()
 {
@@ -217,6 +224,34 @@ void Test_NQueens()
     chrono::milliseconds elapsed_time = chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 
     cout << "Elapsed time: " << elapsed_time.count() << " milliseconds" << endl;
+}
+
+void Test_RobotWalk()
+{
+    cout << RobotWalk_v1(7, 4, 5, 9) << endl;
+    cout << RobotWalk_v2(7, 4, 5, 9) << endl;
+}
+
+void Test_coinsMin()
+{
+    vector<int> coins = {5, 2, 3};
+    cout << coinsMin_v2(coins, 1) << endl;
+}
+
+void Test_HorseJump()
+{
+    int x = 7, y = 7, step = 10;
+    cout << "HorseJump: " << HorseJump(x, y, step) << endl;
+    cout << "HorseJumpDP: " << HorseJumpDP(x, y, step) << endl;
+}
+
+void Test_BobDie()
+{
+    int n = 10, m = 10, i = 3, j = 2, k = 5;
+    cout << "BobDie: " << BobDie(n, m, i, j, k) << endl;
+    cout << "BobDieDP: " << BobDieDP(n, m, i, j, k) << endl;
+    int a = 18, b = 48;
+    cout << "The GCD of " << a << " and " << b << " is " << gcd(a, b) << endl;
 }
 
 void Test_RandomPoolClass()

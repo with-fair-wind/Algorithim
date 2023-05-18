@@ -44,7 +44,12 @@ void Test_GetMedianOfVector();
 void Test_Hanoi();
 void Test_PrintAllSubsquences();
 void Test_PrintAllPermutations();
+void Test_winScore();
 void Test_NQueens();
+void Test_RobotWalk();
+void Test_coinsMin();
+void Test_HorseJump();
+void Test_BobDie();
 
 // 常用结构
 void Test_KMP();
