@@ -1,3 +1,11 @@
+// @before-stub-for-debug-begin
+#include "commoncppproblem14.h"
+#include <string>
+#include <vector>
+
+using namespace std;
+// @before-stub-for-debug-end
+
 /*
  * @lc app=leetcode.cn id=14 lang=cpp
  *
@@ -110,7 +118,7 @@ class Solution
 public:
     string longestCommonPrefix(vector<string> &strs)
     {
-        return ansV1(strs);
+        return ansV2(strs);
     }
 
     string ansV1(vector<string> &strs)
@@ -135,6 +143,38 @@ public:
                 break;
         }
         return res;
+    }
+
+    string ansV2(vector<string> &strs)
+    {
+        if (strs.empty())
+            return "";
+        return process(strs, 0, strs[0]);
+    }
+
+    string process(vector<string> &strs, int index, string nowStr)
+    {
+        if (index == strs.size() - 1)
+            return commonPrefix(nowStr, strs[index]);
+        string cur = commonPrefix(nowStr, strs[index]);
+        string temp = process(strs, index + 1, cur);
+        return commonPrefix(temp, cur);
+    }
+
+    string commonPrefix(const string &str1, const string &str2)
+    {
+        string result;
+        int n1 = str1.length();
+        int n2 = str2.length();
+
+        // 遍历字符串，直到较短的字符串结束或者字符不匹配
+        for (int i = 0; i < n1 && i < n2; i++)
+        {
+            if (str1[i] != str2[i])
+                break;
+            result += str1[i];
+        }
+        return result;
     }
 };
 // @lc code=end
