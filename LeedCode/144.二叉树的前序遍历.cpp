@@ -1,7 +1,15 @@
+// @before-stub-for-debug-begin
+#include "commoncppproblem144.h"
+#include <string>
+#include <vector>
+
+using namespace std;
+// @before-stub-for-debug-end
+
 /*
- * @lc app=leetcode.cn id=145 lang=cpp
+ * @lc app=leetcode.cn id=144 lang=cpp
  *
- * [145] 二叉树的后序遍历
+ * [144] 二叉树的前序遍历
  */
 #include <stack>
 #include <vector>
@@ -24,33 +32,25 @@ struct TreeNode
 class Solution
 {
 public:
-    vector<int> postorderTraversal(TreeNode *root)
+    vector<int> preorderTraversal(TreeNode *root)
     {
         // vector<int> res;
         // process(root, res);
         // return res;
-
         if (root == nullptr)
             return vector<int>();
         vector<int> res;
         stack<TreeNode *> stackNode;
-        stack<TreeNode *> stackPos;
         stackNode.push(root);
         while (!stackNode.empty())
         {
             TreeNode *node = stackNode.top();
             stackNode.pop();
-            stackPos.push(node);
-            if (node->left)
-                stackNode.push(node->left);
+            res.push_back(node->val);
             if (node->right)
                 stackNode.push(node->right);
-        }
-        while (!stackPos.empty())
-        {
-            TreeNode *node = stackPos.top();
-            stackPos.pop();
-            res.push_back(node->val);
+            if (node->left)
+                stackNode.push(node->left);
         }
         return res;
     }
@@ -59,9 +59,9 @@ public:
     {
         if (root == nullptr)
             return;
+        res.push_back(root->val);
         process(root->left, res);
         process(root->right, res);
-        res.push_back(root->val);
     }
 };
 // @lc code=end

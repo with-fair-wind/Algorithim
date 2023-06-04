@@ -3,9 +3,6 @@
  *
  * [160] 相交链表
  */
-
-// @lc code=start
-
 #include <cmath>
 
 // Definition for singly-linked list.
@@ -15,6 +12,7 @@ struct ListNode
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 };
+// @lc code=start
 
 class Solution
 {
@@ -35,8 +33,7 @@ public:
             num--;
             cur2 = cur2->next;
         }
-        if (cur1 != cur2)
-            return nullptr;
+
         cur1 = num > 0 ? headA : headB;
         cur2 = cur1 == headA ? headB : headA;
         num = abs(num);

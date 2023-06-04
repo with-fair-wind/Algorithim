@@ -3,10 +3,6 @@
  *
  * [206] 反转链表
  */
-
-// @lc code=start
-
-// Definition for singly-linked list.
 struct ListNode
 {
     int val;
@@ -15,6 +11,9 @@ struct ListNode
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+// @lc code=start
+
+// Definition for singly-linked list.
 
 class Solution
 {
