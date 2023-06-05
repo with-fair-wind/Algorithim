@@ -4,30 +4,53 @@
  * [225] 用队列实现栈
  */
 
-#include <
+#include <queue>
+
+using namespace std;
 
 // @lc code=start
 class MyStack
 {
+private:
+    queue<int> m_queue1, m_queue2;
+
 public:
     MyStack()
     {
+        m_queue1 = queue<int>();
+        m_queue2 = queue<int>();
     }
 
     void push(int x)
     {
+        while (!m_queue1.empty())
+        {
+            m_queue2.push(m_queue1.front());
+            m_queue1.pop();
+        }
+        m_queue1.push(x);
+        while (!m_queue2.empty())
+        {
+            m_queue1.push(m_queue2.front());
+            m_queue2.pop();
+        }
     }
 
     int pop()
     {
+        int res = m_queue1.front();
+        m_queue1.pop();
+        return res;
     }
 
     int top()
     {
+        return m_queue1.front();
     }
 
     bool empty()
     {
+        return m_queue1.empty();
     }
 };
 
