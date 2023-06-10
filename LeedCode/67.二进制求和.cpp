@@ -18,6 +18,25 @@ class Solution
 public:
     string addBinary(string a, string b)
     {
+        string result;
+        int i = a.length() - 1, j = b.length() - 1, add = 0;
+        int x, y, sum;
+        while (i >= 0 || j >= 0 || add != 0)
+        {
+            x = i >= 0 ? a[i] - '0' : 0;
+            y = j >= 0 ? b[j] - '0' : 0;
+            sum = x + y + add;
+            add = sum < 2 ? 0 : 1;
+            result += ('0' + sum % 2);
+            i--;
+            j--;
+        }
+        reverse(result.begin(), result.end());
+        return result;
+    }
+
+    string ans1(string a, string b)
+    {
         string res;
         int carry = 0;
         auto ita = a.rbegin(), itb = b.rbegin();
