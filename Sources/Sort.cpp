@@ -161,8 +161,8 @@ void QuickSort_v2(int *arr, int L, int R)
     if (arr == nullptr || L >= R)
         return;
     pair<int, int> index = patition_v2(arr, L, R);
-    QuickSort_v2(arr, L, index.first - 1);
-    QuickSort_v2(arr, index.second + 1, R);
+    QuickSort_v2(arr, L, index.first);
+    QuickSort_v2(arr, index.second, R);
 }
 
 pair<int, int> patition_v2(int *arr, int L, int R)
@@ -180,7 +180,7 @@ pair<int, int> patition_v2(int *arr, int L, int R)
         else
             swap_arr(arr, --index.second, i);
     }
-    return make_pair(index.first + 1, index.second - 1);
+    return make_pair(index.first, index.second);
 }
 
 void heapSort(int *arr, int heapsize)

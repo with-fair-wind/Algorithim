@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 
-    Test_BobDie();
+    Test_SortArr();
 
     return 0;
 }
