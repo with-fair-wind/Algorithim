@@ -61,10 +61,34 @@ void DFS_v2(Node *node)
             if (mapSet.find(tmp) == mapSet.end())
             {
                 mapStack.push(cur);
-                mapStack.push(tmp);
+                mapStack.push(tmp); // 如果还有其TA路，则从返回的这一层继续走深度
                 mapSet.insert(tmp);
                 cout << tmp->val << " ";
                 break;
+            }
+        }
+    }
+}
+
+void DFS_v3(Node *node)
+{
+    if (!node)
+        return;
+    stack<Node *> nodeStack;
+    unordered_set<Node *> nodeSet;
+    nodeStack.push(node);
+    nodeSet.insert(node);
+    while (!nodeStack.empty())
+    {
+        Node *cur = nodeStack.top();
+        nodeStack.pop();
+        cout << cur->val << " ";
+        for (Node *tmp : cur->nexts)
+        {
+            if (nodeSet.find(tmp) == nodeSet.end())
+            {
+                nodeStack.push(tmp);
+                nodeSet.insert(tmp);
             }
         }
     }
@@ -142,7 +166,7 @@ unordered_set<Edge *, EdgeHash, EdgeEqual> primMST(Graph *Graph)
         {
             Edge *cur = priorityEdges.top();
             priorityEdges.pop();
-            if (nodeSet.find(cur->to) != nodeSet.end())
+            if (nodeSet.find(cur->to) == nodeSet.end())
             {
                 nodeSet.insert(cur->to);
                 res.insert(cur);
@@ -169,7 +193,7 @@ unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra1(Node *head)
         {
             Node *toNode = edge->to;
             if (selectedNodes.find(toNode) == selectedNodes.end())
-                distanceMap.insert(make_pair(toNode, edge->weight));
+                distanceMap.insert(make_pair(toNode, distance + edge->weight));
             else
                 distanceMap[toNode] = (distanceMap[toNode] < distance + edge->weight ? distanceMap[toNode] : distance + edge->weight);
         }

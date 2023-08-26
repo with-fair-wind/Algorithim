@@ -173,11 +173,14 @@ void BFS(Node *node);
 // 图的深度遍历(只需要给一个节点就可以)
 void DFS_v1(Node *node);
 void DFS_v2(Node *node);
+void DFS_v3(Node *node);
 // 图的拓扑排序
 std::list<Node *> *sortedTopology(Graph *graph);
 
 // 生成最小生成树(k、p算法)
+// 每次选权值最小的边，看会不会形成环(可能形成多个节点和多个节点合并的过程所以hashmap不行，得用并查集)
 std::unordered_set<Edge *, EdgeHash, EdgeEqual> kruskalMST(Graph *Graph);
+// 每次加一个点
 std::unordered_set<Edge *, EdgeHash, EdgeEqual> primMST(Graph *Graph);
 
 // 最短路径问题

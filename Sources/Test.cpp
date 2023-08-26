@@ -120,10 +120,14 @@ void Test_PreInPosTraversal()
 
 void Test_IsBST()
 {
-    TreeNode *head = new TreeNode(2);
+    TreeNode *head = new TreeNode(4);
     head->left = new TreeNode(2);
-    head->right = new TreeNode(2);
-    cout << (isBST_v2(head) ? "Right" : "Wrong") << endl;
+    head->left->left = new TreeNode(1);
+    head->left->right = new TreeNode(3);
+    head->right = new TreeNode(6);
+    head->right->left = new TreeNode(5);
+    head->right->right = new TreeNode(7);
+    cout << (isBST_v0(head) ? "Right" : "Wrong") << endl;
 }
 
 void Test_SerializeAndReconstructTree()
@@ -187,6 +191,8 @@ void Test_Hanoi()
 
 void Test_PrintAllSubsquences()
 {
+    printAllSubsequence_v1(string("abc"));
+    cout << "================================" << endl;
     printAllSubsequence_v2(string("abc"));
 }
 

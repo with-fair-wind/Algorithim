@@ -37,10 +37,12 @@ void posOrderUnRecur(TreeNode *head);
 int getMaxWidth(TreeNode *head);
 
 // 判断是否是搜索二叉树(中序遍历递增)
+bool isBST_v0(TreeNode *head);
 bool isBST_v1(TreeNode *head);
 void process_v1(TreeNode *head, std::list<int> &myList);
 bool isBST_v2(TreeNode *head);
 std::pair<bool, std::pair<int, int>> *process_v2(TreeNode *head);
+
 // 判断是否是完全二叉树
 bool isCBT(TreeNode *head);
 // 判断是否是平衡二叉树

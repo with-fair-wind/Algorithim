@@ -69,13 +69,10 @@ void inOrderUnRecur(TreeNode *head)
         stackNode.pop();
         cout << node->val << " "; // 已经是(左头)的打印顺序了，再看每个作为头的节点的右数也遵循这样的规则(将右数分解为(左头左头...))
         node = node->right;
-        if (node)
+        while (node)
         {
-            while (node)
-            {
-                stackNode.push(node);
-                node = node->left;
-            }
+            stackNode.push(node);
+            node = node->left;
         }
     }
 }
@@ -140,6 +137,25 @@ int getMaxWidth(TreeNode *head)
         }
     }
     return maxWidth;
+}
+
+bool isBST_v0(TreeNode *head)
+{
+    if (!head)
+        return true;
+    static int prev = INT_MIN;
+    bool left = isBST_v0(head->left);
+    if (left)
+    {
+        if (head->val > prev)
+        {
+            prev = head->val;
+            return isBST_v0(head->right);
+        }
+        else
+            return false;
+    }
+    return false;
 }
 
 bool isBST_v1(TreeNode *head)
@@ -281,6 +297,7 @@ PTreeNode *getSuccessorNode(PTreeNode *node)
         PTreeNode *father = node->father;
         while (father != nullptr && father->left != node)
         {
+            // 同时往上走
             node = father;
             father = node->father;
         }
@@ -336,9 +353,9 @@ void process_v4(int i, int N, bool down)
 {
     if (i > N)
         return;
-    process_v4(i + 1, N, true);
-    cout << (down ? "凹" : "凸") << " ";
-    process_v4(i + 1, N, false);
+    process_v4(i + 1, N, true);          // 打印第二层左边的，按中序遍历的方式打印，头为true
+    cout << (down ? "凹" : "凸") << " "; // 打印自己
+    process_v4(i + 1, N, false);         // 打印第二层左边的，按中序遍历的方式打印，头为false
 }
 
 int maxDistance(TreeNode *head)

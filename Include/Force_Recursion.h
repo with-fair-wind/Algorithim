@@ -6,15 +6,15 @@
 
 // 汉诺塔问题
 void hanoi(int n);
-// 打印n层汉诺塔从最左边移动到最右边的全部过程(real代表最底层实际是第几层)
-void hanoi(int n, int real, std::string from, std::string help, std::string to);
+// 打印n层汉诺塔从最左边移动到最右边的全部过程
+void hanoi(int n, std::string from, std::string help, std::string to);
 
 // 打印一个字符串的全部子序列，包括空字符串
 void printAllSubsequence_v2(const std::string &str);
 // [0~i-1]已经确定好了，打印包括i索引及后面所有字符的全部子序列(传入参数i最大只能为str.size())
 void process(std::vector<char> &chs, size_t i);
 //// 方法二
-void printAllSubsquence_v1(std::string str);
+void printAllSubsequence_v1(std::string str);
 void func_v1(std::string str, std::string output);
 
 // 打印一个字符串的全部排列
@@ -65,7 +65,7 @@ int func_v6(int upperLim, int colLim, int leftDiaLim, int rightDiaLim);
 
 // 机器人达到指定位置方法数
 // 假设有排成一行的 N 个位置，记为 1~N，N 一定大于或等于2
-// 开始时机器人在其中的 M 位置上(M 一定是 1 ~N 中的一个)，机器人可以往左走或者往右走
+// 开始时机器人在其中的 M 位置上(M 一定是 1 ~ N 中的一个)，机器人可以往左走或者往右走
 // 如果机器人来到 1 位置， 那么下一步只能往右来到 2 位置
 // 如果机器人来到 N 位置，那么下一步只能往左来到 N-1 位置
 // 规定机器人必须走 K 步，最终能来到 P 位置(P 也一定是 1~N 中的一个)的方法有多少种

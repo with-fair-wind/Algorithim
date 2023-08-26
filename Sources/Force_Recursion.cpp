@@ -5,18 +5,18 @@ using namespace std;
 void hanoi(int n)
 {
     if (n > 0)
-        hanoi(n, n, "left", "mid", "right");
+        hanoi(n, "left", "mid", "right");
 }
 
-void hanoi(int n, int real, string from, string help, string to)
+void hanoi(int n, string from, string help, string to)
 {
     if (n == 1)
-        cout << "move " << real << " from " << from << " to " << to << endl;
+        cout << "move 1 from " << from << " to " << to << endl;
     else
     {
-        hanoi(n - 1, real - 1, from, to, help);
-        hanoi(1, real, from, help, to);
-        hanoi(n - 1, n - 1, help, from, to);
+        hanoi(n - 1, from, to, help);
+        hanoi(1, from, help, to);
+        hanoi(n - 1, help, from, to);
     }
 }
 
@@ -47,7 +47,7 @@ void process(vector<char> &chs, size_t i)
     chs[i] = tmp;
 }
 
-void printAllSubsquence_v1(string str)
+void printAllSubsequence_v1(string str)
 {
     string output;
     func_v1(str, output);
@@ -135,6 +135,7 @@ int func_v3(std::string numStr, size_t i)
         int res = func_v3(numStr, i + 1);
         if (i + 1 < numStr.length()) // 保证第i+1位是有效的
             res += func_v3(numStr, i + 2);
+        return res;
     }
 
     if (numStr[i] == '2')

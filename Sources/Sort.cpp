@@ -116,7 +116,7 @@ int merge_inverselogarithm(int *arr, int L, int mid, int R)
     while (p1 <= mid && p2 <= R)
     {
         res += arr[p1] > arr[p2] ? (R - p2 + 1) : 0;
-        // 就算arr[p1] == arr[p2], 拷贝右边的数，并后移p2, 为了知道右边有几个数比arr[p1]大
+        // 就算arr[p1] == arr[p2], 拷贝右边的数，并后移p2, 为了知道右边有几个数比arr[p1]小
         help[i++] = arr[p1] > arr[p2] ? arr[p1++] : arr[p2++];
     }
     while (p1 <= mid)

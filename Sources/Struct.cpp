@@ -145,7 +145,7 @@ void getNextArray(size_t *nextArr, const string &m)
     nextArr[0] = -1;
     nextArr[1] = 0;
     size_t index = 2;
-    size_t cn = 0;
+    size_t cn = 0; // cn既代表是拿第cn位的信息去和第index - 1位的信息去比，也代表第index - 1位的nextArr信息，即前缀和信息
     while (index < m.length())
     {
         if (m[index - 1] == m[cn])

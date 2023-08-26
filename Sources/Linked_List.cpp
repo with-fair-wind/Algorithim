@@ -428,7 +428,7 @@ SingleNode *noLoop(SingleNode *head1, SingleNode *head2)
         num++;
         cur1 = cur1->next;
     }
-    while (cur2)
+    while (cur2->next)
     {
         num--;
         cur2 = cur2->next;

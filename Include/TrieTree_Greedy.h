@@ -20,7 +20,7 @@ struct TrieNode
 class Trie
 {
 private:
-    std::shared_ptr<TrieNode> root;
+    std::shared_ptr<TrieNode> root; // 根节点pass：有多少个字符串是以空串为前缀的(任何字符串都以空串为前缀)==加入了多少个str
 
 public:
     Trie() : root(std::make_shared<TrieNode>()) {}
@@ -28,6 +28,7 @@ public:
     void insertStr(const std::string &word)
     {
         std::shared_ptr<TrieNode> node = root;
+        node->pass++;
         for (char ch : word)
         {
             if (node->children.count(ch) == 0)

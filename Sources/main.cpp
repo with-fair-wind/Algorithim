@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 
-    Test_SortArr();
+    Test_PrintAllSubsquences();
 
     return 0;
 }
