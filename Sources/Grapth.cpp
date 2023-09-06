@@ -15,15 +15,13 @@ void BFS(Node *node)
         Node *cur = mapQueue.front();
         mapQueue.pop();
         cout << cur->val << " ";
-        while (!cur->nexts.empty())
+
+        for (Node *tmp : cur->nexts)
         {
-            for (Node *tmp : cur->nexts)
+            if (mapSet.find(tmp) == mapSet.end())
             {
-                if (mapSet.find(tmp) == mapSet.end())
-                {
-                    mapQueue.push(tmp);
-                    mapSet.insert(tmp);
-                }
+                mapQueue.push(tmp);
+                mapSet.insert(tmp);
             }
         }
     }
@@ -192,7 +190,7 @@ unordered_map<Node *, int, NodeHash, NodeEqual> dijkstra1(Node *head)
         for (Edge *edge : minNode->edges)
         {
             Node *toNode = edge->to;
-            if (selectedNodes.find(toNode) == selectedNodes.end())
+            if (distanceMap.find(toNode) == distanceMap.end())
                 distanceMap.insert(make_pair(toNode, distance + edge->weight));
             else
                 distanceMap[toNode] = (distanceMap[toNode] < distance + edge->weight ? distanceMap[toNode] : distance + edge->weight);
