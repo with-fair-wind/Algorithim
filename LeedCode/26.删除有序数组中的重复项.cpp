@@ -15,19 +15,17 @@ class Solution
 public:
     int removeDuplicates(vector<int> &nums)
     {
-        set<int> numSet;
-        int length = 0;
-        for (int i = 0; i < nums.size(); i++)
+        if (nums.empty())
+            return 0;
+        int l = 0, r = 1;
+        while (r < nums.size())
         {
-            if (numSet.find(nums[i]) == numSet.end())
-            {
-                numSet.insert(nums[i]);
-                length++;
-            }
+            if (nums[r] == nums[l])
+                r++;
+            else
+                nums[++l] = nums[r++];
         }
-        nums.clear();
-        copy(numSet.begin(), numSet.end(), back_inserter(nums));
-        return length;
+        return l + 1;
     }
 };
 // @lc code=end

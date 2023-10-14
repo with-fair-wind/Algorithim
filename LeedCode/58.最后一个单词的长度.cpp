@@ -16,7 +16,7 @@ class Solution
 public:
     int lengthOfLastWord(string s)
     {
-        return Ans2(s);
+        return Ans1(s);
     }
 
     int Ans1(const string &s)

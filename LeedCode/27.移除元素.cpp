@@ -19,6 +19,7 @@ using namespace std;
 class Solution
 {
 public:
+#if 0
     int removeElement(vector<int> &nums, int val)
     {
         int end = nums.size() - 1;
@@ -40,5 +41,20 @@ public:
         }
         return res;
     }
+#else if
+    int removeElement(vector<int> &nums, int val)
+    {
+        int left = 0;
+        for (int right = 0; right < nums.size(); ++right)
+        {
+            if (nums[right] != val)
+            {
+                nums[left] = nums[right];
+                left++;
+            }
+        }
+        return left;
+    }
+#endif
 };
 // @lc code=end

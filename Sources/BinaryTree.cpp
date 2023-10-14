@@ -178,9 +178,9 @@ void process_v1(TreeNode *head, list<int> &myList)
 {
     if (head == nullptr)
         return;
-    process_v1(head, myList);
+    process_v1(head->left, myList);
     myList.push_back(head->val);
-    process_v1(head, myList);
+    process_v1(head->right, myList);
 }
 
 bool isBST_v2(TreeNode *head)

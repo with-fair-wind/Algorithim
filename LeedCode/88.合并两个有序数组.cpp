@@ -62,7 +62,7 @@ public:
         }
         while (n > 0)
         {
-            swap(nums1[end1 + n], nums2[end2--]);
+            swap(nums1[n - 1], nums2[end2--]);
             n--;
         }
     }
