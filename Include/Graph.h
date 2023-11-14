@@ -152,7 +152,9 @@ struct UnionFind
         {
             for (auto cur : *(UnionSet.at(n2)))
                 UnionSet.at(n1)->push_back(cur);
+            std::list<Node *> *tmp = UnionSet.at(n2);
             UnionSet.at(n2) = UnionSet.at(n1);
+            delete tmp;
         }
     }
 };

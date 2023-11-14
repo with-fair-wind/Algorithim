@@ -421,7 +421,7 @@ SingleNode *noLoop(SingleNode *head1, SingleNode *head2)
 {
     if (head1 == nullptr || head2 == nullptr)
         return nullptr;
-    int num = 0;
+    int num = 1;
     SingleNode *cur1 = head1, *cur2 = head2;
     while (cur1->next)
     {

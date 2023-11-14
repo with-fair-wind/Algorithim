@@ -41,6 +41,7 @@ public:
 #else
     int lengthOfLongestSubstring(string s)
     {
+#if 0
         int res = INT_MIN;
         int left = 0;
         int right = 0;
@@ -64,6 +65,24 @@ public:
             }
         }
         return max(res, right - left);
+#else
+        int res = INT_MIN;
+
+        int L = 0, R = 0;
+        map<char, int> setmap;
+        for (; R < s.length(); R++)
+        {
+            if (setmap.find(s[R]) == setmap.end())
+                setmap.insert(make_pair(s[R], R));
+            else
+            {
+                L = max(L, setmap[s[R]] + 1);
+                setmap[s[R]] = R;
+            }
+            res = max(res, R - L + 1);
+        }
+        return res == INT_MIN ? 0 : res;
+#endif
     }
 #endif
 };
