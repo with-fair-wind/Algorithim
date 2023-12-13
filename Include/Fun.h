@@ -1,7 +1,18 @@
+/*
+ * @Author: kk 921232958@qq.com
+ * @Date: 2023-11-25 16:02:46
+ * @LastEditors: kk 921232958@qq.com
+ * @LastEditTime: 2023-12-13 20:34:33
+ * @FilePath: /Algorithim/Include/Fun.h
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 #ifndef __FUNCTIONAL_H__
 #define __FUNCTIONAL_H__
 
 #include <chrono>
+#include <climits>
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
